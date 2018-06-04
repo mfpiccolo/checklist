@@ -1,12 +1,17 @@
 import checklistsWithItemsJsonApi
   from "../fixtures/checklists-jsonapi-response";
 import checklistsWithItemsGraphQl
-  from "../fixtures/checklists-jsonapi-response";
+  from "../fixtures/checklists-graphql-response";
 
 const API = {
-  fetchChecklists() {
+  fetchJsonApiChecklists() {
     return new Promise((resolve, reject) => {
       resolve(checklistsWithItemsJsonApi);
+    });
+  },
+  fetchGraphQLChecklists() {
+    return new Promise((resolve, reject) => {
+      resolve(checklistsWithItemsGraphQl);
     });
   }
 };

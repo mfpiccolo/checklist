@@ -27,9 +27,13 @@ export function fetchChecklists() {
     try {
       dispatch(fetchChecklistRequestAction());
       // Users fetch however they want
-      const checklists = await API.fetchChecklists();
+      const jsonApiChecklists = await API.fetchJsonApiChecklists();
+      const graphQlChecklists = await API.fetchGraphQLChecklists();
 
-      dispatchUpdateResourcesByID(dispatch, { jsonApiPayload: checklists });
+      dispatchUpdateResourcesByID(dispatch, {
+        jsonApiPayload: jsonApiChecklists,
+        graphQlPayload: graphQlChecklists
+      });
     } catch (error) {
       console.log(error);
       dispatch(fetchChecklistsErrorAction(error));

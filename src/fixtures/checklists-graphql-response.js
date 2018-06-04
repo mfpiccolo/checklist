@@ -7,44 +7,53 @@ export default {
   },
   data: [
     {
-      id: 1,
+      id: 7,
+      __typename: "Checklist",
       name: "Onboarding GraphQL",
       tasks: [
         {
-          id: 1,
+          id: 7,
+          __typename: "Task",
           description: "Onboarding Graph 1"
         },
         {
-          id: 2,
+          id: 8,
+          __typename: "Task",
           description: "Onboarding Graph 1"
         }
       ]
     },
     {
-      id: 1,
+      id: 8,
+      __typename: "Checklist",
       name: "Project Audit GraphQL",
       tasks: [
         {
-          id: 3,
-          description: "Onboarding Graph 1"
+          id: 9,
+          __typename: "Task",
+          description: "Project Audit Graph 1"
         },
         {
-          id: 4,
-          description: "Onboarding Graph 1"
+          id: 10,
+          __typename: "Task",
+          description: "Project Audit Graph 1"
         }
       ]
     },
     {
-      id: 1,
+      id: 9,
+      __typename: "Checklist",
       name: "QA Checklist GraphQL",
       tasks: [
         {
-          id: 5,
-          description: "Onboarding Graph 1"
+          id: 11,
+          __typename: "Task",
+          description: "QA Checklist Graph 1"
         },
         {
-          id: 6,
-          description: "Onboarding Graph 1"
+          id: 12,
+          __typename: "Task",
+          description: "QA Checklist Graph 1"
         }
       ]
     }
