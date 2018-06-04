@@ -6,7 +6,6 @@ const initialState = {
 
 export default function resources(state = initialState, action) {
   switch (action.type) {
-    // TODO: Framework Code
     case "ADD_OR_REPLACE_RESOURCE_BY_ID":
       newState = { ...state };
       const {

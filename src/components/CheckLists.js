@@ -6,7 +6,6 @@ type Props = {};
 export default class Checklists extends Component<Props> {
   render() {
     const { checklists, navigation } = this.props;
-    console.log(checklists);
     if (!checklists) return null;
     return (
       <List>
