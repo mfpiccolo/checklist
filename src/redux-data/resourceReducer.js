@@ -20,7 +20,13 @@ export default function resources(state = initialState, action) {
 
       _initializeResource(newState, resourceType);
 
-      newState[resourceType][id] = { id, attributes, links, relationships };
+      newState[resourceType][id] = {
+        type,
+        id,
+        attributes,
+        links,
+        relationships
+      };
 
       return newState;
     case "BULK_REPLACE_RESOURCE":

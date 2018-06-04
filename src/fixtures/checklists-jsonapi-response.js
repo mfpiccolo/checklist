@@ -88,7 +88,7 @@ export default {
       type: "tasks",
       id: "3",
       attributes: {
-        description: "Project Audit 3"
+        description: "Project Audit Rest 3"
       },
       links: {
         self: "http://example.com/tasks/3"
@@ -98,7 +98,7 @@ export default {
       type: "tasks",
       id: "4",
       attributes: {
-        description: "Project Audit 4"
+        description: "Project Audit Rest 4"
       },
       links: {
         self: "http://example.com/tasks/4"
@@ -108,7 +108,7 @@ export default {
       type: "tasks",
       id: "5",
       attributes: {
-        description: "QA Checklist 5"
+        description: "QA Checklist Rest 5"
       },
       links: {
         self: "http://example.com/tasks/5"
@@ -118,7 +118,7 @@ export default {
       type: "tasks",
       id: "6",
       attributes: {
-        description: "QA Checklist 6"
+        description: "QA Checklist Rest 6"
       },
       links: {
         self: "http://example.com/tasks/6"

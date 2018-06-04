@@ -9,13 +9,12 @@ export default class Checklists extends Component<Props> {
     if (!checklists) return null;
     return (
       <List>
-        {checklists.map(({ id, name }) => (
+        {checklists.map(({ id, name, tasks }) => (
           <TouchableOpacity
             key={id}
-            onPress={() => navigation.navigate("ChecklistScreen")}
+            onPress={() => navigation.navigate("ChecklistScreen", { tasks })}
           >
             <ListItem title={name} />
-            {/* <ListItem title={name} leftIcon={{ name: "done" }} /> */}
           </TouchableOpacity>
         ))}
       </List>

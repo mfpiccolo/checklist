@@ -6,6 +6,7 @@ import { Text } from "react-native";
 import { selectResources } from "../redux-data";
 import { fetchChecklists } from "../actions/checklists";
 import Checklists from "./CheckLists";
+import Checklist from "../models/Checklist";
 
 type Props = {};
 class ChecklistsScreen extends Component<Props> {
@@ -23,12 +24,9 @@ class ChecklistsScreen extends Component<Props> {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({ resources }) => {
   return {
-    checklists: selectResources(state, {
-      type: "checklists",
-      include: ["tasks"]
-    })
+    checklists: Checklist.setResources(resources).all().includes(["tasks"])
   };
 };
 

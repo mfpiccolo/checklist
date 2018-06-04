@@ -1,21 +1,25 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native";
 import { List, ListItem } from "react-native-elements";
 
+import { selectResources } from "../redux-data";
+
 type Props = {};
-export default class Checklist extends Component<Props> {
+export default class ChecklistScreen extends Component<Props> {
   render() {
-    const { listItem } = this.props;
-    if (!listItem) return null;
+    const { navigation: { state: { params: { tasks } } } } = this.props;
+    if (!tasks) return null;
     return (
       <List>
-        {listItem.map(({ id, name }) => (
+        {tasks.map(({ id, description }) => (
           <TouchableOpacity key={id} onPress={() => {}}>
-            <ListItem title={name} />
-            {/* <ListItem title={name} leftIcon={{ name: "done" }} /> */}
+            <ListItem title={description} leftIcon={{ name: "done" }} />
           </TouchableOpacity>
         ))}
       </List>
     );
   }
 }
+
+// TODO: try to connect this with

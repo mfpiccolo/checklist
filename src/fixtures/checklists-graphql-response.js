@@ -7,7 +7,7 @@ export default {
   },
   data: [
     {
-      id: 7,
+      id: 4,
       __typename: "Checklist",
       name: "Onboarding GraphQL",
       tasks: [
@@ -24,7 +24,7 @@ export default {
       ]
     },
     {
-      id: 8,
+      id: 5,
       __typename: "Checklist",
       name: "Project Audit GraphQL",
       tasks: [
@@ -41,7 +41,7 @@ export default {
       ]
     },
     {
-      id: 9,
+      id: 6,
       __typename: "Checklist",
       name: "QA Checklist GraphQL",
       tasks: [
