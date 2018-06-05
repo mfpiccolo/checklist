@@ -41,17 +41,6 @@ class QueryObject {
     return this;
   }
 
-  _flattenRelationships(relationships) {
-    // {tasks: {data:[]}}
-    return Object.values(
-      relationships
-    ).reduce((nextRelationships, { data }) => {
-      return [...nextRelationships, ...data];
-    }, []);
-  }
-
-  // convert into nested structure
-  // itterate through and convert it into an array with a nested relationships
   execute() {
     const { currentIncludes, currentResources, _flattenRelationships } = this;
     return Object.values(
@@ -86,6 +75,15 @@ class QueryObject {
   }
 
   // Private
+
+  _flattenRelationships(relationships) {
+    // {tasks: {data:[]}}
+    return Object.values(
+      relationships
+    ).reduce((nextRelationships, { data }) => {
+      return [...nextRelationships, ...data];
+    }, []);
+  }
 
   _setCurrentResources() {
     if (this._isEmpty(this.currentResources)) {

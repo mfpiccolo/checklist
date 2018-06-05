@@ -21,7 +21,7 @@ export default function resources(state = initialState, action) {
       _initializeResource(newState, resourceType);
 
       newState[resourceType][id] = {
-        type,
+        resourceType,
         id,
         attributes,
         links,
