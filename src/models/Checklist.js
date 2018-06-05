@@ -1,3 +1,3 @@
-import BaseQuery from "../models/ReduxDataBaseModel";
+import { BaseQuery } from "../redux-data";
 
 export default class Checklist extends BaseQuery {}

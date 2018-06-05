@@ -27,10 +27,10 @@ const mapStateToProps = ({ resources }) => {
   return {
     // checklists: Checklist.setResources(resources).all().execute()
     //
-    // checklists: Checklist.setResources(resources)
-    //   .all()
-    //   .includes(["tasks"])
-    //   .execute()
+    checklists: Checklist.setResources(resources)
+      .all()
+      .includes(["tasks"])
+      .execute()
     //
     // checklists: Checklist.setResources(resources)
     //   .where({ name: "Onboarding Rest" })
