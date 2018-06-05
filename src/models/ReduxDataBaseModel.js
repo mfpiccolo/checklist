@@ -20,21 +20,24 @@ class QueryObject {
   }
 
   find(id) {
-    return (
-      this.resources[this.resourceName] && this.resources[this.resourceName][id]
-    );
+    const resource =
+      this.resources[this.resourceName] &&
+      this.resources[this.resourceName][id];
+    if (resource) {
+      this.currentResources = { [id]: resource };
+    }
+    return this;
   }
 
   where(params) {
     this._setCurrentResources();
     this._filterAndSetCurrentResourcesByParams(params);
-    console.log("where", this.currentResources);
     return this;
   }
 
   includes(relationshipTypes) {
+    this._setCurrentResources();
     this.currentIncludes = relationshipTypes;
-    console.log("includes", this.currentResources);
     return this;
   }
 
@@ -98,7 +101,6 @@ class QueryObject {
       return newResource;
     }, {});
     this.currentResources = resourcesByID;
-    console.log(this.currentResources);
   }
 
   _filterResourceByParams(params, newResource, resource, id) {
