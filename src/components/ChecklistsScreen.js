@@ -24,21 +24,21 @@ class ChecklistsScreen extends Component<Props> {
 }
 
 const mapStateToProps = ({ resources }) => {
-  // console.log(
-  //   Object.values(
-  //     Checklist.setResources(resources)
-  //       .where({ name: "Onboarding Rest" })
-  //       .execute()
-  //   )
-  // );
+  // Checklist.setResources(resources)
+  //   .where({ name: "Onboarding Rest" })
+  //   .execute();
 
-  console.log(Checklist.setResources(resources).includes(["tasks"]).execute());
-
+  // Checklist.setResources(resources).all().includes(["tasks"]).execute();
   return {
     // checklists: Checklist.setResources(resources)
     //   .all()
     //   .includes(["tasks"])
     //   .execute()
+    checklists: Checklist.setResources(resources)
+      .where({ name: "Onboarding Rest" })
+      .includes(["tasks"])
+      .execute()
+    // checklists: Checklist.setResources(resources).includes(["tasks"]).execute()
   };
 };
 

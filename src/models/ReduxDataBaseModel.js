@@ -56,6 +56,7 @@ class QueryObject {
       this.currentResources
     ).map(({ id, attributes, relationships, types, links }) => {
       const newFormattedResource = { id, ...attributes };
+
       if (!currentIncludes.length) return newFormattedResource;
       return {
         ...newFormattedResource,
@@ -110,7 +111,7 @@ class QueryObject {
   _filterResourceByParams(params, newResource, resource, id) {
     Object.entries(params).forEach(([key, value]) => {
       if (resource.attributes[key] === value) {
-        newResource[id] = { id, ...resource.attributes, type: resource.type };
+        newResource[id] = resource;
       }
     });
   }
