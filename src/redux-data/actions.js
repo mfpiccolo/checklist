@@ -14,17 +14,20 @@ const normalizeAndMergePayload = (
     ).forEach(([resourceType, resourcesById]) => {
       dispatch({
         type: "MERGE_RESOURCES",
-        resourceType: resourceType,
+        resourceType,
         resourcesById
       });
     });
   }
 
   if (graphQlPayload) {
-    Object.entries(
-      jsonApiNormalize(jsonApiPayload)
-    ).forEach(([resourceType, resourcesById]) => {
-      dispatch({ type: "MERGE_RESOURCES", resourceType: type, resourcesById });
+    Object.entries(graphQlNormalize(graphQlPayload)).forEach(array => {
+      const [resourceType, resourcesById] = array;
+      dispatch({
+        type: "MERGE_RESOURCES",
+        resourceType,
+        resourcesById: _convertToJsonApiSpec(resourceType, resourcesById)
+      });
     });
   }
 };
@@ -39,6 +42,7 @@ const dispatchUpdateResourcesByID = (
       jsonApiNormalize(jsonApiPayload)
     );
   }
+
   if (graphQlPayload) {
     _dispatchAddOrReplaceAllGraphQlResources(
       dispatch,
@@ -48,11 +52,8 @@ const dispatchUpdateResourcesByID = (
   }
 };
 
-const _dispatchAddOrReplaceAllJsonApiResources = (
-  dispatch,
-  normalizedResources
-) => {
-  Object.entries(normalizedResources).forEach(([resourceType, resources]) => {
+const _dispatchAddOrReplaceAllJsonApiResources = (dispatch, resourcesById) => {
+  Object.entries(resourcesById).forEach(([resourceType, resources]) => {
     Object.entries(
       resources
     ).forEach(([id, { type, attributes, links, relationships }]) => {
@@ -72,9 +73,9 @@ const _dispatchAddOrReplaceAllJsonApiResources = (
 const _dispatchAddOrReplaceAllGraphQlResources = (
   dispatch,
   type,
-  normalizedResources
+  resourcesById
 ) => {
-  Object.entries(normalizedResources).forEach(([resourceType, resources]) => {
+  Object.entries(resourcesById).forEach(([resourceType, resources]) => {
     Object.entries(resources).forEach(([id, resource]) => {
       dispatch({
         type: "ADD_OR_REPLACE_RESOURCE_BY_ID",
@@ -102,6 +103,22 @@ const _buildRelationships = (type, resource) => {
       // TODO: handle hasOne and belongsTo
     }
     return newObject;
+  }, {});
+};
+
+const _convertToJsonApiSpec = (resourceType, resourcesById) => {
+  return Object.entries(
+    resourcesById
+  ).reduce((formattedResourcesById, [id, resource]) => {
+    formattedResourcesById[id] = {
+      type: resourceType,
+      id,
+      attributes: resource,
+      links: null,
+      relationships: _buildRelationships(resourceType, resource)
+    };
+
+    return formattedResourcesById;
   }, {});
 };
 

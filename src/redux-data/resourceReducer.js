@@ -24,11 +24,11 @@ export default function resources(state = initialState, action) {
       return newState;
     case "MERGE_RESOURCES":
       const { resourcesById } = action;
-      resources = { ...state.resources };
+      resources = { ...state };
       if (!resources[resourceType]) {
         resources[resourceType] = {};
       }
-      console.log(resources, resourcesById);
+
       return {
         ...state,
         [resourceType]: merge(resources[resourceType], resourcesById)

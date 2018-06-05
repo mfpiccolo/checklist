@@ -7,7 +7,7 @@ export default {
   data: [
     {
       type: "checklists",
-      id: "1",
+      id: 1,
       attributes: {
         name: "Onboarding Rest"
       },
@@ -17,7 +17,7 @@ export default {
             self: "http://example.com/checklists/1/relationships/tasks",
             related: "http://example.com/checklists/1/tasks"
           },
-          data: [{ type: "tasks", id: "1" }, { type: "tasks", id: "2" }]
+          data: [{ type: "tasks", id: 1 }, { type: "tasks", id: 2 }]
         }
       },
       links: {
@@ -26,7 +26,7 @@ export default {
     },
     {
       type: "checklists",
-      id: "2",
+      id: 2,
       attributes: {
         name: "Project Audit Rest"
       },
@@ -36,7 +36,7 @@ export default {
             self: "http://example.com/checklists/2/relationships/tasks",
             related: "http://example.com/checklists/2/tasks"
           },
-          data: [{ type: "tasks", id: "3" }, { type: "tasks", id: "4" }]
+          data: [{ type: "tasks", id: 3 }, { type: "tasks", id: 4 }]
         }
       },
       links: {
@@ -45,7 +45,7 @@ export default {
     },
     {
       type: "checklists",
-      id: "3",
+      id: 3,
       attributes: {
         name: "QA Checklist Rest"
       },
@@ -55,7 +55,7 @@ export default {
             self: "http://example.com/checklists/3/relationships/tasks",
             related: "http://example.com/checklists/3/tasks"
           },
-          data: [{ type: "tasks", id: "5" }, { type: "tasks", id: "6" }]
+          data: [{ type: "tasks", id: 5 }, { type: "tasks", id: 6 }]
         }
       },
       links: {
@@ -66,7 +66,7 @@ export default {
   included: [
     {
       type: "tasks",
-      id: "1",
+      id: 1,
       attributes: {
         description: "Onboarding REST 1"
       },
@@ -76,7 +76,7 @@ export default {
     },
     {
       type: "tasks",
-      id: "2",
+      id: 2,
       attributes: {
         description: "Onboarding REST 2"
       },
@@ -86,7 +86,7 @@ export default {
     },
     {
       type: "tasks",
-      id: "3",
+      id: 3,
       attributes: {
         description: "Project Audit Rest 3"
       },
@@ -96,7 +96,7 @@ export default {
     },
     {
       type: "tasks",
-      id: "4",
+      id: 4,
       attributes: {
         description: "Project Audit Rest 4"
       },
@@ -106,7 +106,7 @@ export default {
     },
     {
       type: "tasks",
-      id: "5",
+      id: 5,
       attributes: {
         description: "QA Checklist Rest 5"
       },
@@ -116,7 +116,7 @@ export default {
     },
     {
       type: "tasks",
-      id: "6",
+      id: 6,
       attributes: {
         description: "QA Checklist Rest 6"
       },

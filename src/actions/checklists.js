@@ -32,6 +32,7 @@ export function fetchChecklists() {
       // Users fetch however they want
       const jsonApiChecklists = await API.fetchJsonApiChecklists();
       const graphQlChecklists = await API.fetchGraphQLChecklists();
+
       normalizeAndMergePayload(dispatch, {
         jsonApiPayload: jsonApiChecklists,
         graphQlPayload: graphQlChecklists
