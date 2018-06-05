@@ -1,4 +1,7 @@
-import { dispatchUpdateResourcesByID } from "../redux-data";
+import {
+  dispatchUpdateResourcesByID,
+  normalizeAndMergePayload
+} from "../redux-data";
 import API from "../api";
 
 const fetchChecklistRequestAction = () => {
@@ -29,8 +32,7 @@ export function fetchChecklists() {
       // Users fetch however they want
       const jsonApiChecklists = await API.fetchJsonApiChecklists();
       const graphQlChecklists = await API.fetchGraphQLChecklists();
-
-      dispatchUpdateResourcesByID(dispatch, {
+      normalizeAndMergePayload(dispatch, {
         jsonApiPayload: jsonApiChecklists,
         graphQlPayload: graphQlChecklists
       });

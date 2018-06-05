@@ -1,22 +1,15 @@
+import merge from "deepmerge";
+
 const initialState = {
-  loading: false,
-  checklists: {},
-  error: null
+  checklists: {}
 };
 
 export default function resources(state = initialState, action) {
+  const { resourceType } = action;
   switch (action.type) {
     case "ADD_OR_REPLACE_RESOURCE_BY_ID":
-      newState = { ...state };
-      const {
-        type,
-        spec,
-        resourceType,
-        id,
-        attributes,
-        links,
-        relationships
-      } = action;
+      const newState = { ...state };
+      const { type, spec, id, attributes, links, relationships } = action;
 
       _initializeResource(newState, resourceType);
 
@@ -29,8 +22,17 @@ export default function resources(state = initialState, action) {
       };
 
       return newState;
-    case "BULK_REPLACE_RESOURCE":
-      return { ...state };
+    case "MERGE_RESOURCES":
+      const { resourcesById } = action;
+      resources = { ...state.resources };
+      if (!resources[resourceType]) {
+        resources[resourceType] = {};
+      }
+      console.log(resources, resourcesById);
+      return {
+        ...state,
+        [resourceType]: merge(resources[resourceType], resourcesById)
+      };
     default:
       return state;
   }

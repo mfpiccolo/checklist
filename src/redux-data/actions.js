@@ -4,7 +4,31 @@ import { GraphQLNormalizr } from "graphql-normalizr";
 const graphQLNormalizr = new GraphQLNormalizr();
 const graphQlNormalize = graphQLNormalizr.normalize;
 
-// TODO: needs refactoring
+const normalizeAndMergePayload = (
+  dispatch,
+  { jsonApiPayload, graphQlPayload }
+) => {
+  if (jsonApiPayload) {
+    Object.entries(
+      jsonApiNormalize(jsonApiPayload)
+    ).forEach(([resourceType, resourcesById]) => {
+      dispatch({
+        type: "MERGE_RESOURCES",
+        resourceType: resourceType,
+        resourcesById
+      });
+    });
+  }
+
+  if (graphQlPayload) {
+    Object.entries(
+      jsonApiNormalize(jsonApiPayload)
+    ).forEach(([resourceType, resourcesById]) => {
+      dispatch({ type: "MERGE_RESOURCES", resourceType: type, resourcesById });
+    });
+  }
+};
+
 const dispatchUpdateResourcesByID = (
   dispatch,
   { jsonApiPayload, graphQlPayload }
@@ -16,8 +40,6 @@ const dispatchUpdateResourcesByID = (
     );
   }
   if (graphQlPayload) {
-    // GraphQL adapter
-    // TODO write the code that will normalize the graphql payload into our store
     _dispatchAddOrReplaceAllGraphQlResources(
       dispatch,
       "checklists",
@@ -83,4 +105,4 @@ const _buildRelationships = (type, resource) => {
   }, {});
 };
 
-export { dispatchUpdateResourcesByID };
+export { normalizeAndMergePayload, dispatchUpdateResourcesByID };

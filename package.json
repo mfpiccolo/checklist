@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "deepmerge": "^2.1.1",
     "graphql": "^0.13.2",
     "graphql-normalizr": "^1.0.2",
     "json-api-normalizer": "^0.4.10",
