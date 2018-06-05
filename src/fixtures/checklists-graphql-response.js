@@ -14,12 +14,12 @@ export default {
         {
           id: 7,
           __typename: "Task",
-          description: "Onboarding Graph 1"
+          description: "Onboarding Graph 7"
         },
         {
           id: 8,
           __typename: "Task",
-          description: "Onboarding Graph 1"
+          description: "Onboarding Graph 8"
         }
       ]
     },
@@ -31,12 +31,12 @@ export default {
         {
           id: 9,
           __typename: "Task",
-          description: "Project Audit Graph 1"
+          description: "Project Audit Graph 9"
         },
         {
           id: 10,
           __typename: "Task",
-          description: "Project Audit Graph 1"
+          description: "Project Audit Graph 10"
         }
       ]
     },
@@ -48,12 +48,12 @@ export default {
         {
           id: 11,
           __typename: "Task",
-          description: "QA Checklist Graph 1"
+          description: "QA Checklist Graph 11"
         },
         {
           id: 12,
           __typename: "Task",
-          description: "QA Checklist Graph 1"
+          description: "QA Checklist Graph 12"
         }
       ]
     }

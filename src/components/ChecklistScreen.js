@@ -3,8 +3,6 @@ import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native";
 import { List, ListItem } from "react-native-elements";
 
-import { selectResources } from "../redux-data";
-
 type Props = {};
 export default class ChecklistScreen extends Component<Props> {
   render() {

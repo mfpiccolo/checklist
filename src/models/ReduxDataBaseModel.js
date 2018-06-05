@@ -10,51 +10,108 @@ class QueryObject {
   constructor(resourceName, resources) {
     this.resourceName = resourceName;
     this.resources = resources;
-    this.currentResources = [];
+    this.currentIncludes = [];
+    this.currentResources = {};
     this.currentResourcesIds = [];
   }
 
   all() {
-    this.currentResources = this.resources[this.resourceName];
-    if (!this.currentResources) return;
-    this.currentResourcesIds = Object.entries(this.currentResources).map(
-      ([id]) => id
-    );
+    this._setCurrentResources();
     return this;
   }
 
-  find() {}
-
-  where(params) {
-    // TODO: needs to return a query object
+  find(id) {
+    return (
+      this.resources[this.resourceName] && this.resources[this.resourceName][id]
+    );
   }
 
-  includes(relations) {
-    return Object.entries(this.currentResources).map(([id, resource]) => {
-      const newResource = { id, ...resource.attributes };
-      if (!relations) return newResource;
-      relations.forEach(relationshipType => {
-        newResource[relationshipType] = [];
-        relationshipData = resource.relationships[relationshipType].data;
-        relationshipData.forEach(relation => {
-          if (!this.currentResourcesIds.includes(relation.id));
+  where(params) {
+    this._setCurrentResources();
+    this._filterAndSetCurrentResourcesByParams(params);
+    this._setCurrentResourcesIds();
+    return this;
+  }
 
-          const relationshipResources = this.resources[relation.type];
-          if (!relationshipResources) return;
+  includes(relationshipTypes) {
+    this._setCurrentResources();
+    this.currentIncludes = relationshipTypes; //['tasks']
+    return this;
+  }
 
-          const storeRelation = relationshipResources[relation.id];
-          if (!storeRelation) return;
-          newResource[relationshipType].push({
+  _flattenRelationships(relationships) {
+    // {tasks: {data:[]}}
+    return Object.values(
+      relationships
+    ).reduce((nextRelationships, { data }) => {
+      return [...nextRelationships, ...data];
+    }, []);
+  }
+
+  // convert into nested structure
+  // itterate through and convert it into an array with a nested relationships
+  execute() {
+    const { currentIncludes, currentResources, _flattenRelationships } = this;
+    return Object.values(
+      this.currentResources
+    ).map(({ id, attributes, relationships, types, links }) => {
+      const newFormattedResource = { id, ...attributes };
+      if (!currentIncludes.length) return newFormattedResource;
+      return {
+        ...newFormattedResource,
+        ..._flattenRelationships(
+          relationships
+        ).reduce((nextRelationshipObjects, { id, type }) => {
+          if (!currentIncludes.includes(type)) return nextRelationshipObjects;
+          if (!(type in nextRelationshipObjects)) {
+            nextRelationshipObjects[type] = [];
+          }
+
+          if (!this.resources[type]) return nextRelationshipObjects;
+          const relationData = this.resources[type][id];
+          if (!relationData) return nextRelationshipObjects;
+          nextRelationshipObjects[type].push({
+            type,
             id,
-            ...storeRelation.attributes
+            ...relationData.attributes
           });
-        });
-      });
-      return newResource;
+
+          return nextRelationshipObjects;
+        }, {})
+      };
     });
   }
 
-  execute() {
-    // TODO stays lazy until this is called
+  // Private
+
+  _setCurrentResources() {
+    if (!this.currentResources[0]) {
+      this.currentResources = this.resources[this.resourceName];
+      this._setCurrentResourcesIds();
+    }
+  }
+
+  _setCurrentResourcesIds() {
+    this.currentResourcesIds = Object.entries(this.currentResources).map(
+      ([id]) => id
+    );
+  }
+
+  _filterAndSetCurrentResourcesByParams(params) {
+    const resourcesByID = Object.entries(
+      this.currentResources
+    ).reduce((newResource, [id, resource]) => {
+      this._filterResourceByParams(params, newResource, resource, id);
+      return newResource;
+    }, {});
+    this.currentResources = resourcesByID;
+  }
+
+  _filterResourceByParams(params, newResource, resource, id) {
+    Object.entries(params).forEach(([key, value]) => {
+      if (resource.attributes[key] === value) {
+        newResource[id] = { id, ...resource.attributes, type: resource.type };
+      }
+    });
   }
 }

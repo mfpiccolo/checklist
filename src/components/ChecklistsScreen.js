@@ -3,7 +3,6 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { Text } from "react-native";
 
-import { selectResources } from "../redux-data";
 import { fetchChecklists } from "../actions/checklists";
 import Checklists from "./CheckLists";
 import Checklist from "../models/Checklist";
@@ -25,8 +24,21 @@ class ChecklistsScreen extends Component<Props> {
 }
 
 const mapStateToProps = ({ resources }) => {
+  // console.log(
+  //   Object.values(
+  //     Checklist.setResources(resources)
+  //       .where({ name: "Onboarding Rest" })
+  //       .execute()
+  //   )
+  // );
+
+  console.log(Checklist.setResources(resources).includes(["tasks"]).execute());
+
   return {
-    checklists: Checklist.setResources(resources).all().includes(["tasks"])
+    // checklists: Checklist.setResources(resources)
+    //   .all()
+    //   .includes(["tasks"])
+    //   .execute()
   };
 };
 
