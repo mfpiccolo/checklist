@@ -12,7 +12,6 @@ class QueryObject {
     this.resources = resources;
     this.currentIncludes = [];
     this.currentResources = {};
-    this.currentResourcesIds = [];
   }
 
   all() {
@@ -29,13 +28,13 @@ class QueryObject {
   where(params) {
     this._setCurrentResources();
     this._filterAndSetCurrentResourcesByParams(params);
-    this._setCurrentResourcesIds();
+    console.log("where", this.currentResources);
     return this;
   }
 
   includes(relationshipTypes) {
-    this._setCurrentResources();
-    this.currentIncludes = relationshipTypes; //['tasks']
+    this.currentIncludes = relationshipTypes;
+    console.log("includes", this.currentResources);
     return this;
   }
 
@@ -86,16 +85,9 @@ class QueryObject {
   // Private
 
   _setCurrentResources() {
-    if (!this.currentResources[0]) {
+    if (this._isEmpty(this.currentResources)) {
       this.currentResources = this.resources[this.resourceName];
-      this._setCurrentResourcesIds();
     }
-  }
-
-  _setCurrentResourcesIds() {
-    this.currentResourcesIds = Object.entries(this.currentResources).map(
-      ([id]) => id
-    );
   }
 
   _filterAndSetCurrentResourcesByParams(params) {
@@ -106,6 +98,7 @@ class QueryObject {
       return newResource;
     }, {});
     this.currentResources = resourcesByID;
+    console.log(this.currentResources);
   }
 
   _filterResourceByParams(params, newResource, resource, id) {
@@ -114,5 +107,17 @@ class QueryObject {
         newResource[id] = resource;
       }
     });
+  }
+
+  _isEmpty(obj) {
+    if (
+      obj === null ||
+      obj === undefined ||
+      Array.isArray(obj) ||
+      typeof obj !== "object"
+    ) {
+      return true;
+    }
+    return Object.getOwnPropertyNames(obj).length === 0 ? true : false;
   }
 }
