@@ -6,13 +6,13 @@ import {
 import LoginScreen from "./LoginScreen";
 import ChecklistsScreen from "./ChecklistsScreen";
 import ProfileScreen from "./ProfileScreen";
-import ChecklistScreen from "./ChecklistScreen";
+import TaskScreen from "./TaskScreen";
 
 const MainNavigator = createStackNavigator(
   {
     LoginScreen: { screen: LoginScreen },
     ChecklistsScreen: { screen: ChecklistsScreen },
-    ChecklistScreen: { screen: ChecklistScreen }
+    TaskScreen: { screen: TaskScreen }
   },
   {
     initialRouteName: "ChecklistsScreen"

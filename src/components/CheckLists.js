@@ -12,7 +12,7 @@ export default class Checklists extends Component<Props> {
         {checklists.map(({ id, name, tasks }) => (
           <TouchableOpacity
             key={id}
-            onPress={() => navigation.navigate("ChecklistScreen", { tasks })}
+            onPress={() => navigation.navigate("TaskScreen", { tasks })}
           >
             <ListItem title={name} />
           </TouchableOpacity>

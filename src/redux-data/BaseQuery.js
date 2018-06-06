@@ -1,7 +1,7 @@
 import pluralize from "pluralize";
 
 export default class BaseQuery {
-  static setResources(resources) {
+  static query(resources) {
     return new QueryObject(pluralize(this.name.toLowerCase()), resources);
   }
 }
@@ -32,6 +32,25 @@ class QueryObject {
   where(params) {
     this._setCurrentResources();
     this._filterAndSetCurrentResourcesByParams(params);
+    return this;
+  }
+
+  whereRelated(relationship, params) {
+    this._setCurrentResources();
+    const { resourceName } = this;
+
+    this.currentResources = relationship
+      .query(this.resources)
+      .where(params)
+      .includes([resourceName])
+      .execute()
+      .reduce((newResource, relatedResource) => {
+        const relation = relatedResource[resourceName];
+        relation.forEach(({ type, id, ...attributes }) => {
+          newResource[id] = { type, id, attributes };
+        });
+        return newResource;
+      }, {});
     return this;
   }
 

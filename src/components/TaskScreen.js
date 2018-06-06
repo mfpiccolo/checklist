@@ -3,10 +3,14 @@ import { connect } from "react-redux";
 import { TouchableOpacity } from "react-native";
 import { List, ListItem } from "react-native-elements";
 
+import Checklist from "../models/Checklist";
+import Task from "../models/Task";
+
 type Props = {};
-export default class ChecklistScreen extends Component<Props> {
+class TaskScreen extends Component<Props> {
   render() {
-    const { navigation: { state: { params: { tasks } } } } = this.props;
+    // const { navigation: { state: { params: { tasks } } } } = this.props;
+    const { tasks } = this.props;
     if (!tasks) return null;
     return (
       <List>
@@ -20,4 +24,12 @@ export default class ChecklistScreen extends Component<Props> {
   }
 }
 
-// TODO: try to connect this with
+const mapStateToProps = ({ resources }) => {
+  return {
+    tasks: Task.query(resources)
+      .whereRelated(Checklist, { name: "Onboarding Rest" })
+      .execute()
+  };
+};
+
+export default connect(mapStateToProps)(TaskScreen);

@@ -25,21 +25,21 @@ class ChecklistsScreen extends Component<Props> {
 
 const mapStateToProps = ({ resources }) => {
   return {
-    // checklists: Checklist.setResources(resources)
+    // checklists: Checklist.query(resources)
     //   .all()
     //   .includes(["tasks"])
     //   .execute()
     //
-    // checklists: Checklist.setResources(resources).all().execute()
+    // checklists: Checklist.query(resources).all().execute()
     //
-    checklists: Checklist.setResources(resources)
+    checklists: Checklist.query(resources)
       .where({ name: "Onboarding Rest" })
       .includes(["tasks"])
       .execute()
     //
-    // checklists: Checklist.setResources(resources).includes(["tasks"]).execute()
+    // checklists: Checklist.query(resources).includes(["tasks"]).execute()
     //
-    // checklists: Checklist.setResources(resources)
+    // checklists: Checklist.query(resources)
     //   .find(1)
     //   .includes(["tasks"])
     //   .execute()
